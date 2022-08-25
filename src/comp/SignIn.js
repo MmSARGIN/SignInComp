@@ -1,7 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useFormik } from 'formik';
+import { ToastContainer, toast } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
+
 
 const SignIn = () => {
+  // const [users, setusers] = useState();
+  // const [isLogged, setisLogged] = useState(true);
+ const notify = () => {
+    toast.success("Login Success", {
+      position: toast.POSITION.TOP_CENTER
+    });
+  };
   const formik = useFormik({
     initialValues: {
       firstName: '',
@@ -10,17 +20,35 @@ const SignIn = () => {
       password: ''
     },
     onSubmit: values => {
-      console.log(values);
+      // fetch('http://localhost:3001')
+      // .then(res => res.json())
+      // .then(data => {
+      //   console.log(data);
+      //   setusers(data);
+      // })
+     let options = {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+          },
+          body: JSON.stringify(values)
+        }
+        console.log(values);
+        fetch('http://localhost:3001/users', options)
+        .then(res => console.log(res))
+        notify()
     },
   });
   return (
-    <div className='flex bg-gradient-to-r to-blue-300 from-blue-500 items-center justify-center w-11/12'>
-      <div className='flex bg-gradient-to-r rounded-l-lg to-blue-500 from-white items-center w-3/12 h-3/4'>
+    
+    <div className='flex bg-gradient-to-r to-blue-200 from-cyan-500 items-center justify-center w-11/12'>
+    <ToastContainer/>
+      <div className='flex bg-gradient-to-r rounded-l-lg to-cyan-500 from-blue-200 items-center w-3/12 h-3/4'>
 
       </div>
       <div className="flex flex-col p-6 rounded-r-lg shadow-lg h-3/4 bg-white w-8/12">
         <div className='flex justify-center pb-9'>
-          <h1 className='text-3xl text-blue-500'>Sign In</h1>
+          <h1 className='text-3xl text-cyan-500'>Sign In</h1>
         </div>
         <form onSubmit={formik.handleSubmit}>
           <div className="grid grid-cols-2 gap-4">
@@ -123,7 +151,7 @@ const SignIn = () => {
       w-full
       px-6
       py-2.5
-      bg-blue-400
+      bg-cyan-400
       text-white
       font-medium
       text-xs
@@ -131,9 +159,9 @@ const SignIn = () => {
       uppercase
       rounded
       shadow-md
-      hover:bg-blue-700 hover:shadow-lg
-      focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0
-      active:bg-blue-800 active:shadow-lg
+      hover:bg-cyan-600 hover:shadow-lg
+      focus:bg-cyan-700 focus:shadow-lg focus:outline-none focus:ring-0
+      active:bg-cyan-800 active:shadow-lg
       transition
       duration-150
       ease-in-out">Sign up</button>
