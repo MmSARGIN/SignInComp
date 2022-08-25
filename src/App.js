@@ -2,7 +2,7 @@ import SignIn from './comp/SignIn';
 
 function App() {
   return (
-    <div>
+    <div className='flex justify-center h-screen'>
      <SignIn/>
     </div>
   );
